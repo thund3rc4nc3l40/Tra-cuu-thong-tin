@@ -48,8 +48,8 @@ function searchByDDCN() {
   const headers = Object.keys(results[0]);
   let headerRow = "<tr>" + headers.map(h => `<th>${h}</th>`).join("") + "</tr>";
   let bodyRows = results.map(row => {
-    return "<tr>" + headers.map(h => `<td>${row[h] || ""}</td>`).join("") + "</tr>`;
-  }).join("");
+    return "<tr>" + headers.map(h => `<td>${row[h] || ""}</td>`).join("") + "</tr>";
+}).join("");
 
   table.innerHTML = headerRow + bodyRows;
 }
@@ -60,3 +60,4 @@ document.getElementById("ddcnInput").addEventListener("keypress", function(e) {
     searchByDDCN();
   }
 });
+
