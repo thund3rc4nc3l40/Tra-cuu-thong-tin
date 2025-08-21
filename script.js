@@ -12,12 +12,12 @@ fetch("data.csv")
     allData = results.data;
     csvLoaded = true;
     console.log("CSV loaded:", allData.length, "dòng dữ liệu");
+    console.log("Tên cột:", Object.keys(allData[0] || {}));
   })
   .catch(err => {
     document.getElementById("message").textContent = "Lỗi tải dữ liệu: " + err.message;
   });
 
-// Hàm tìm kiếm
 function searchByDDCN() {
   const ddcn = document.getElementById("ddcnInput").value.trim();
   const messageDiv = document.getElementById("message");
@@ -36,8 +36,8 @@ function searchByDDCN() {
     return;
   }
 
-  // Lọc dữ liệu theo Số ĐDCN (so khớp chính xác)
-  const results = allData.filter(row => row["Số ĐDCN"] === ddcn);
+  // Lọc dữ liệu (so khớp chính xác)
+  const results = allData.filter(row => (row["Số ĐDCN"] || "").trim() === ddcn);
 
   if (results.length === 0) {
     messageDiv.textContent = "Không tìm thấy dữ liệu cho Số ĐDCN này.";
@@ -54,10 +54,7 @@ function searchByDDCN() {
   table.innerHTML = headerRow + bodyRows;
 }
 
-// Sự kiện khi bấm nút
 document.getElementById("searchBtn").addEventListener("click", searchByDDCN);
-
-// Sự kiện khi nhấn Enter
 document.getElementById("ddcnInput").addEventListener("keypress", function(e) {
   if (e.key === "Enter") {
     searchByDDCN();
